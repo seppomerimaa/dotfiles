@@ -16,7 +16,7 @@
     ("d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -29,20 +29,27 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
-
 (eval-when-compile
   (require 'use-package))
+
 
 (use-package evil
   :ensure t
   :config
   (evil-mode t))
+
+
 (use-package helm
   :ensure t
   :config
   (require 'helm-config)
   (helm-mode 1))
+;; Use helm for finding files and M-x
+;; instead of the defaults
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+
 (use-package neotree
   :ensure t
   :config
@@ -53,6 +60,7 @@
   (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
   (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))
 
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -60,16 +68,7 @@
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
-	 
 
-;; Use helm for finding files and M-x
-;; instead of the defaults
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-
-;; Custom themes
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'afterglow t)
 
 ;; Scala stuffs
 (use-package ensime
@@ -81,3 +80,14 @@
   ("scala" . scala-mode)
   :config
   (setq scala-indent:use-javadoc-style t))
+
+(use-package magit
+  :ensure t
+  :config
+  (require 'magit)
+  (global-set-key (kbd "C-x g") 'magit-status))
+
+
+;; Custom themes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'afterglow t)

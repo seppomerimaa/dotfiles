@@ -54,6 +54,7 @@
   :ensure t
   :config
   (require 'neotree)
+  (global-set-key [f8] 'neotree-toggle)
   ;; These only work in normal mode for now...maybe remove that?
   (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
   (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
@@ -80,6 +81,7 @@
   ("scala" . scala-mode)
   :config
   (setq scala-indent:use-javadoc-style t))
+
 
 (use-package magit
   :ensure t

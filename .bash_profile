@@ -1,5 +1,7 @@
 # Source the corporate profile, too, duh.
-source ~/.corporate-profile
+if [ -f ~/.corporate-profile ]; then
+  source ~/.corporate-profile
+fi
 
 alias cat="lolcat"
 
@@ -58,4 +60,4 @@ PS1='[\W$(__git_ps1 " (%s)")]\$ '
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 # Tab completion for branch names
 source ~/.git-completion.bash
-alias config='/usr/bin/git --git-dir=/Users/smclaughlin/.cfg/ --work-tree=/Users/smclaughlin'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

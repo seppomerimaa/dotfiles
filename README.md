@@ -23,11 +23,6 @@ config checkout
 config config status.showUntrackedFiles no
 ```
 
-You might need to add this alias, too:
-```
-echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bash_profile
-```
-
 ## Usage
 Basically we just have `config` as a fancy alias for `git` so you can `config add foo` and `config commit -m "Add foo" and `config push` etc.
 

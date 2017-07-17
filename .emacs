@@ -16,7 +16,7 @@
     ("d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -91,11 +91,38 @@
 
 
 ;; Haskell stuffs
-
 (use-package intero
   :ensure t
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
+
+
+;; Latex
+;; (use-package auctex
+;;   :ensure t
+;;   :config
+;;   (setq Tex-auto-save t)
+;;   (setq Tex-parse-self t)
+;;   (setq Tex-save-query nil)
+;;   ;;(setq Tex-PDF-mode t)
+;;   )
+(use-package tex
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t)
+  (setq Tex-parse-self t)
+  (setq TeX-save-query nil)
+  (setq-default TeX-master nil)
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; macros for creating references
+  (setq reftex-plug-into-AUCTeX t) 
+  (setq Tex-PDF-mode t) ; automatically compile to PDF
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode); Enable Flyspell mode for TeX modes such as AUCTeX. Highlights all misspelled words.
+  (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode); Enable Flyspell program mode for emacs lisp mode, which highlights all misspelled words in comments and strings.
+  (setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
+  ;; tip: if you get an error about no such file or directory ispell do `brew install ispell`
+  )
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")

@@ -28,3 +28,9 @@ Basically we just have `config` as a fancy alias for `git` so you can `config ad
 
 ## Notes
 `.bash_profile` just has general stuffs that I want to use across machines. It sources `.corporate-profile` which is where I put company-specific aliases etc. that obviously shouldn't be posted publicly.
+
+## To-Dos
+
+* Make a boostrap script?
+* Install homebrew if not already
+* Install all of the homebrew-managed stuffs like emacs

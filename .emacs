@@ -16,7 +16,7 @@
     ("d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -89,6 +89,13 @@
   (require 'magit)
   (global-set-key (kbd "C-x g") 'magit-status))
 
+
+;; Haskell stuffs
+
+(use-package intero
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'intero-mode))
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")

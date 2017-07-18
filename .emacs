@@ -16,7 +16,7 @@
     ("d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -71,6 +71,24 @@
   :init (setq markdown-command "multimarkdown"))
 
 
+(use-package magit
+  :ensure t
+  :config
+  (require 'magit)
+  (global-set-key (kbd "C-x g") 'magit-status))
+
+
+;; Helm + Projectile
+(use-package projectile
+  :ensure t)
+(use-package helm-projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on))
+
+
 ;; Scala stuffs
 (use-package ensime
   :ensure t
@@ -83,13 +101,6 @@
   (setq scala-indent:use-javadoc-style t))
 
 
-(use-package magit
-  :ensure t
-  :config
-  (require 'magit)
-  (global-set-key (kbd "C-x g") 'magit-status))
-
-
 ;; Haskell stuffs
 (use-package intero
   :ensure t
@@ -98,14 +109,6 @@
 
 
 ;; Latex
-;; (use-package auctex
-;;   :ensure t
-;;   :config
-;;   (setq Tex-auto-save t)
-;;   (setq Tex-parse-self t)
-;;   (setq Tex-save-query nil)
-;;   ;;(setq Tex-PDF-mode t)
-;;   )
 (use-package tex
   :ensure auctex
   :config

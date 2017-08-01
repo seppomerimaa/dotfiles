@@ -29,6 +29,7 @@ Basically we just have `config` as a fancy alias for `git` so you can `config ad
 ## Notes
 `.bash_profile` just has general stuffs that I want to use across machines. It sources `.corporate-profile` which is where I put company-specific aliases etc. that obviously shouldn't be posted publicly.
 
+The bootstrap bash snippet above should work on both MacOS and Ubuntu; `.bash_profile` needs to get cleaned up a bit to be more cross-platform friendly.
 ## To-Dos
 
 * Make a boostrap script?

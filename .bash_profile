@@ -7,7 +7,13 @@ alias cat="lolcat"
 
 # homebrew-installed version of emacs
 # need to remember to update alias when you update...
-alias emacs="/usr/local/Cellar/emacs/25.2/bin/emacs"
+# on non-macos systems, change / update this
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  echo "Running Linux, don't need to alias emacs"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # osx need to set to proper emacs location
+  alias emacs="/usr/local/Cellar/emacs/25.2/bin/emacs"
+fi
 
 export M2_HOME=/Applications/apache-maven-3.5.0
 export PATH=$PATH:$M2_HOME/bin

@@ -3,7 +3,8 @@ if [ -f ~/.corporate-profile ]; then
   source ~/.corporate-profile
 fi
 
-alias cat="lolcat"
+#alias cat="lolcat"
+alias src="source ~/.bash_profile"
 
 # homebrew-installed version of emacs
 # need to remember to update alias when you update...

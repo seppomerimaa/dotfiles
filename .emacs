@@ -16,7 +16,7 @@
     ("d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -32,6 +32,15 @@
 (eval-when-compile
   (require 'use-package))
 
+;; File backup settings ... or rather, lack thereof. YOLO
+;; from https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+(setq make-backup-files nil
+      ;;backup-directory-alist '(("." "~/.emacs-backups"))
+      ;;kept-new-versions 2
+      ;;kept-old-versions 2
+      ;;version-control t
+      ;;delete-old-versions t
+      )
 
 (use-package evil
   :ensure t
@@ -126,6 +135,20 @@
   (setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
   ;; tip: if you get an error about no such file or directory ispell do `brew install ispell`
   )
+
+;; Orgmode
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files '("~/Dropbox/org/"))
+;; theoretically restore window state after quitting agenda...
+(setq org-agenda-restore-windows-after-quit t)
+;; Prettier bullets for lists. Can customize bullet chars if you like.
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")

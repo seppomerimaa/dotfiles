@@ -32,6 +32,15 @@
 (eval-when-compile
   (require 'use-package))
 
+;; File backup settings ... or rather, lack thereof. YOLO
+;; from https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+(setq make-backup-files nil
+      ;;backup-directory-alist '(("." "~/.emacs-backups"))
+      ;;kept-new-versions 2
+      ;;kept-old-versions 2
+      ;;version-control t
+      ;;delete-old-versions t
+      )
 
 (use-package evil
   :ensure t
@@ -133,6 +142,8 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-agenda-files '("~/Dropbox/org/"))
+;; theoretically restore window state after quitting agenda...
+(setq org-agenda-restore-windows-after-quit t)
 ;; Prettier bullets for lists. Can customize bullet chars if you like.
 (use-package org-bullets
   :ensure t

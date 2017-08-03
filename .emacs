@@ -149,6 +149,22 @@
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+;; org-capture configs
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-default-notes-file "~/Dropbox/org/captures.org")
+;; See the org-capture-templates documentation for help deciphering the templates
+(setq org-capture-templates
+      (quote
+       ;; Capture links using 2 prompts and then optional tags
+       (("l" "Links" entry (file "~/Dropbox/org/links.org")
+	 "* [[%^{Link}][%^{Description}]]\n  %^g\n  %t")
+	;; Capture TODOs
+	("t" "TODO" entry (file+headline "~/Dropbox/org/work.org" "Tasks")
+	 "** TODO %?\n   %t")
+	)))
+;; org-refile configs
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
@@ -158,4 +174,4 @@
   :ensure t)
 (use-package sourcerer-theme
   :ensure t)
-(load-theme 'sourcerer t)
+(load-theme 'arjen-grey t)

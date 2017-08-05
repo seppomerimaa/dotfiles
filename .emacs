@@ -42,21 +42,12 @@
       ;;delete-old-versions t
       )
 
+
 (use-package evil
   :ensure t
   :config
   (evil-mode t))
 
-
-(use-package helm
-  :ensure t
-  :config
-  (require 'helm-config)
-  (helm-mode 1))
-;; Use helm for finding files and M-x
-;; instead of the defaults
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
 
 
 (use-package neotree
@@ -85,19 +76,6 @@
   :config
   (require 'magit)
   (global-set-key (kbd "C-x g") 'magit-status))
-
-
-;; Helm + Projectile
-(use-package projectile
-  :ensure t)
-(use-package helm-projectile
-  :ensure t
-  :config
-  (projectile-global-mode)
-  (setq projectile-completion-system 'helm)
-  (helm-projectile-on))
-
-
 ;; Scala stuffs
 (use-package ensime
   :ensure t
@@ -117,54 +95,10 @@
   (add-hook 'haskell-mode-hook 'intero-mode))
 
 
-;; Latex
-(use-package tex
-  :ensure auctex
-  :config
-  (setq TeX-auto-save t)
-  (setq Tex-parse-self t)
-  (setq TeX-save-query nil)
-  (setq-default TeX-master nil)
-  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; macros for creating references
-  (setq reftex-plug-into-AUCTeX t) 
-  (setq Tex-PDF-mode t) ; automatically compile to PDF
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode); Enable Flyspell mode for TeX modes such as AUCTeX. Highlights all misspelled words.
-  (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode); Enable Flyspell program mode for emacs lisp mode, which highlights all misspelled words in comments and strings.
-  (setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
-  ;; tip: if you get an error about no such file or directory ispell do `brew install ispell`
-  )
 
-;; Orgmode
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-(setq org-agenda-files '("~/Dropbox/org/"))
-;; theoretically restore window state after quitting agenda...
-(setq org-agenda-restore-windows-after-quit t)
-;; Prettier bullets for lists. Can customize bullet chars if you like.
-(use-package org-bullets
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-;; org-capture configs
-(define-key global-map "\C-cc" 'org-capture)
-(setq org-default-notes-file "~/Dropbox/org/captures.org")
-;; See the org-capture-templates documentation for help deciphering the templates
-(setq org-capture-templates
-      (quote
-       ;; Capture links using 2 prompts and then optional tags
-       (("l" "Links" entry (file "~/Dropbox/org/links.org")
-	 "* [[%^{Link}][%^{Description}]]\n  %^g\n  %t")
-	;; Capture TODOs
-	("t" "TODO" entry (file+headline "~/Dropbox/org/work.org" "Tasks")
-	 "** TODO %?\n   %t")
-	)))
-;; org-refile configs
-(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
-
+(load "~/.emacs.d/init/orgmode.el")
+(load "~/.emacs.d/init/search.el")
+(load "~/.emacs.d/init/latex.el")
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
@@ -174,4 +108,4 @@
   :ensure t)
 (use-package sourcerer-theme
   :ensure t)
-(load-theme 'arjen-grey t)
+(load-theme 'solarized-light t)

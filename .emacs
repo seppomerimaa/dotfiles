@@ -1,7 +1,7 @@
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (setq package-enable-at-startup nil)
@@ -16,7 +16,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8bb8a5b27776c39b3c7bf9da1e711ac794e4dc9d43e32a075d8aa72d6b5b3f59" "d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (rust-mode sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,6 +41,27 @@
       ;;version-control t
       ;;delete-old-versions t
       )
+
+;; Maximize emacs on startup
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Set up a full-height window on the left, and a bar on the right with a tall window
+;; and a short window below it with eshell opened in the short one.
+(defun setup-windows ()
+  ; Need interactive so that you can bind it to a key chord
+  (interactive)
+  (delete-other-windows)
+  (split-window-horizontally)
+  (other-window 1)
+  (split-window-below -20)
+  (other-window 1)
+  (eshell)
+  (other-window 1))
+(global-set-key (kbd "C-c w") 'setup-windows)
+;; wants to run command on setup but doesn't happen before the resize :-/
+;;(add-hook 'window-setup-hook 'setup-windows)
+
+(global-visual-line-mode 1)
 
 
 (use-package evil
@@ -76,6 +97,8 @@
   :config
   (require 'magit)
   (global-set-key (kbd "C-x g") 'magit-status))
+
+
 ;; Scala stuffs
 (use-package ensime
   :ensure t
@@ -94,6 +117,10 @@
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
 
+
+;; Rust Rust Rust
+(use-package rust-mode
+  :ensure t)
 
 
 (load "~/.emacs.d/init/orgmode.el")

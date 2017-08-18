@@ -7,6 +7,9 @@
 (setq org-agenda-show-all-dates t)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-skip-scheduled-if-done t)
+(setq org-blank-before-new-entry
+      '((heading . nil)
+	(plain-list-item . nil)))
 
 ;; Define the different states that a task can be in. "|" separates the done state from everything else.
 ;; (t) etc. are for fast selection -- C-c C-t will prompt for a keycode instead of cycling.

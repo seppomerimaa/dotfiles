@@ -15,7 +15,7 @@
 ;; (t) etc. are for fast selection -- C-c C-t will prompt for a keycode instead of cycling.
 ;; Use C-u C-c C-t to cycle instead.
 ;; NB: for some reason you have to restart emacs (to restart orgmode?) to get changes here to take effect :-\
-(setq org-todo-keywords '((sequence "TODO(t)" "CANCELLED(x)" "|" "DONE(d)" )))
+(setq org-todo-keywords '((sequence "TODO(t)" "|" "CANCELLED(x)" "DONE(d)" )))
 
 ;; Set up agenda range so that it's always -3 days to + 7 days relative to now
 (setq org-agenda-start-day "-3d")

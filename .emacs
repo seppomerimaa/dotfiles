@@ -16,7 +16,7 @@
     ("83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8bb8a5b27776c39b3c7bf9da1e711ac794e4dc9d43e32a075d8aa72d6b5b3f59" "d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (rainbow-delimiters cider clojure-mode helm-ag rust-mode sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (paredit rainbow-delimiters cider clojure-mode helm-ag rust-mode sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -67,7 +67,9 @@
 (use-package evil
   :ensure t
   :config
-  (evil-mode t))
+  (evil-mode t)
+  (setq sentence-end-double-space nil)
+  (evil-set-initial-state 'repl-mode 'emacs))
 
 
 
@@ -132,6 +134,11 @@
   :config
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode))
 
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook 'paredit-mode))
+
 (load "~/.emacs.d/init/orgmode.el")
 (load "~/.emacs.d/init/search.el")
 (load "~/.emacs.d/init/latex.el")
@@ -144,4 +151,4 @@
   :ensure t)
 (use-package sourcerer-theme
   :ensure t)
-(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)

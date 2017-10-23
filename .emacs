@@ -45,6 +45,9 @@
 ;; Maximize emacs on startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; Add /usr/local/bin to path so that we can get homebrew stuffs easily
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
 ;; Set up a full-height window on the left, and a bar on the right with a tall window
 ;; and a short window below it with eshell opened in the short one.
 (defun setup-windows ()
@@ -69,7 +72,8 @@
   :config
   (evil-mode t)
   (setq sentence-end-double-space nil)
-  (evil-set-initial-state 'repl-mode 'emacs))
+  (evil-set-initial-state 'repl-mode 'emacs)
+  (evil-set-initial-state 'cider-repl-mode 'emacs))
 
 
 

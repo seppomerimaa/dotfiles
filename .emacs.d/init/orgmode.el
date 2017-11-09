@@ -46,3 +46,13 @@
 	)))
 ;; org-refile configs
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+
+(defun org-archive-done-tasks ()
+  "Archive all of the DONE (or CANCELLED) tasks in this subtree."
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (outline-previous-heading)))
+   "/DONE|CANCELLED" 'tree))
+(define-key org-mode-map (kbd "C-c C-x C-d") 'org-archive-done-tasks)

@@ -73,7 +73,8 @@
   (evil-mode t)
   (setq sentence-end-double-space nil)
   (evil-set-initial-state 'repl-mode 'emacs)
-  (evil-set-initial-state 'cider-repl-mode 'emacs))
+  (evil-set-initial-state 'cider-repl-mode 'emacs)
+  (evil-set-initial-state 'cider-stacktrace-mode 'emacs))
 
 
 

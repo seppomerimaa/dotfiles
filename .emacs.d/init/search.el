@@ -20,3 +20,8 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'helm)
   (helm-projectile-on))
+
+;; Hack around https://github.com/bbatsov/projectile/issues/1183
+(setq projectile-mode-line
+      '(:eval (format " Projectile[%s]"
+		      (projectile-project-name))))

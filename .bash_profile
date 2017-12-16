@@ -57,8 +57,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 
 export PATH=~/Documents/scripts:$PATH
+export PATH=~/Dropbox/workshop/scripts:$PATH
 export PATH="/usr/local/bin:$PATH"
-alias days="python ~/Documents/scripts/days.py"
+alias days="python ~/Dropbox/workshop/scripts/days.py"
 
 # Git configuration
 # Branch name in prompt

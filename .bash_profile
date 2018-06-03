@@ -69,3 +69,10 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 # Tab completion for branch names
 source ~/.git-completion.bash
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# Shadow /usr/bin/curl with this one from homebrew
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export PI="/dev/tty.SLAB_USBtoUART"

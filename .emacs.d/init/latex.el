@@ -14,4 +14,6 @@
   (add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode); Enable Flyspell program mode for emacs lisp mode, which highlights all misspelled words in comments and strings.
   (setq ispell-dictionary "english"); Default dictionary. To change do M-x ispell-change-dictionary RET.
   ;; tip: if you get an error about no such file or directory ispell do `brew install ispell`
-  )
+
+  (setenv "PATH" (concat "/Library/TeX/texbin" (getenv "PATH")))
+  (setq exec-path (append '("/Library/TeX/texbin") exec-path)))

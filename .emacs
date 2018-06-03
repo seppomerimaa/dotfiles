@@ -13,10 +13,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8bb8a5b27776c39b3c7bf9da1e711ac794e4dc9d43e32a075d8aa72d6b5b3f59" "d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
+    ("d6bc59c56cd8a41c8d9a848fd1c5c5746423c428b677fd6387681789721fe7d8" "83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8bb8a5b27776c39b3c7bf9da1e711ac794e4dc9d43e32a075d8aa72d6b5b3f59" "d36e851fab767ad68cdabbae5784dbe88d090b011dd721eee8e527e21f5422af" default)))
  '(package-selected-packages
    (quote
-    (elpy paredit rainbow-delimiters cider clojure-mode helm-ag rust-mode sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
+    (adaptive-wrap visual-fill-column ace-popup-menu flycheck-rust racer company-mode exec-path-from-shell cargo elpy paredit rainbow-delimiters cider clojure-mode helm-ag rust-mode sourcerer-theme arjen-grey-theme solarized-theme org-bullets helm-projectile projectile auctex intero magit markdown-mode neotree neo-tree ensime scala-mode helm use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -48,6 +48,11 @@
 ;; Add /usr/local/bin to path so that we can get homebrew stuffs easily
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; Set up a full-height window on the left, and a bar on the right with a tall window
 ;; and a short window below it with eshell opened in the short one.
 (defun setup-windows ()
@@ -65,7 +70,17 @@
 ;;(add-hook 'window-setup-hook 'setup-windows)
 
 (global-visual-line-mode 1)
-
+(setq fill-column 100)
+;; Wrap at fill-column or window edge without modifying underlying text.
+(use-package visual-fill-column
+  :ensure t
+  :config
+  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+;; Keep indent levels across wraps without modifying underlying text.
+(use-package adaptive-wrap
+  :ensure t
+  :config
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode))
 
 (use-package evil
   :ensure t
@@ -128,6 +143,23 @@
 ;; Rust Rust Rust
 (use-package rust-mode
   :ensure t)
+(use-package cargo
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode))
+(use-package racer
+  :ensure t
+  :config
+  (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
+  (setq racer-rust-src-path "/Users/McFly/workspace/lang/rust/src") ;; Rust source code PATH
+
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode))
+(use-package flycheck-rust
+  :ensure t
+  :config
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 ;; Clojure
 (use-package clojure-mode
@@ -154,10 +186,28 @@
   :config
   (setq elpy-rpc-python-command "python3"))
 
+;; Text
+(setenv "DICTIONARY" "en_US2")
+(dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(markdown-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+;; Got en_US.dic and en_US.dic from https://cgit.freedesktop.org/libreoffice/dictionaries/tree/en
+;; Put them in ~/Library/Spelling
+;; brew install hunspell
+;; Check OK with `hunspell -D`
+;; Now make ispell use hunspell
+(when (executable-find "hunspell")
+  (setq-default ispell-program-name "hunspell")
+  (setq ispell-really-hunspell t))
+(use-package ace-popup-menu
+  :ensure t
+  :config
+  (ace-popup-menu-mode 1))
 
 (load "~/.emacs.d/init/orgmode.el")
 (load "~/.emacs.d/init/search.el")
-(load "~/.emacs.d/init/latex.el")
+;;(load "~/.emacs.d/init/latex.el")
 
 ;; Custom themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
@@ -167,4 +217,4 @@
   :ensure t)
 (use-package sourcerer-theme
   :ensure t)
-(load-theme 'solarized-dark t)
+(load-theme 'acme)

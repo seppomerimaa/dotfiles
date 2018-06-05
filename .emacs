@@ -89,7 +89,15 @@
   (setq sentence-end-double-space nil)
   (evil-set-initial-state 'repl-mode 'emacs)
   (evil-set-initial-state 'cider-repl-mode 'emacs)
-  (evil-set-initial-state 'cider-stacktrace-mode 'emacs))
+  (evil-set-initial-state 'cider-stacktrace-mode 'emacs)
+  ;; Go by visual lines
+  (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+  ;; In visual & operator mode, keep OG behavior so that e.g. dj works
+  (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-line)
+  (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-line)
+  (define-key evil-operator-state-map (kbd "<remap> <evil-next-line>")     #'evil-next-line)
+  (define-key evil-operator-state-map (kbd "<remap> <evil-previous-line>") #'evil-previous-line))
 
 
 

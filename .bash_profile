@@ -76,3 +76,5 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export PI="/dev/tty.SLAB_USBtoUART"
+
+alias gowrite="cd ~/Dropbox/writing"
